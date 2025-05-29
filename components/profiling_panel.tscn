@@ -1,0 +1,64 @@
+[gd_scene load_steps=2 format=3 uid="uid://2sa4h7eyvuub"]
+
+[ext_resource type="Script" uid="uid://dtdmahcd56m0d" path="res://components/profiling_panel.gd" id="1_pc005"]
+
+[node name="ProfilingPanel" type="Panel"]
+visible = false
+offset_right = 400.0
+offset_bottom = 200.0
+script = ExtResource("1_pc005")
+
+[node name="InfoTimer" type="Timer" parent="."]
+wait_time = 1.1
+autostart = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 10
+columns = 2
+
+[node name="Label" type="Label" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+text = "FPS:"
+
+[node name="FpsCounter" type="Label" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+text = "120"
+
+[node name="Label3" type="Label" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Objects in frame:"
+
+[node name="ObjectsCounter" type="Label" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+text = "1000"
+
+[node name="Label5" type="Label" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Draw calls:"
+
+[node name="DrawCallsCounter" type="Label" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+text = "1000"
+
+[node name="Label7" type="Label" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Video memory used:"
+
+[node name="VideoMemCounter" type="Label" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+text = "1000 bytes"
+
+[connection signal="timeout" from="InfoTimer" to="." method="_on_info_timer_timeout"]

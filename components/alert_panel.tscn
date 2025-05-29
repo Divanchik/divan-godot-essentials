@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://oxd6j1o3j2yi"]
+
+[ext_resource type="Script" uid="uid://bgpwrl31qpb3v" path="res://components/alert_panel.gd" id="1_68oxd"]
+
+[node name="AlertPanel" type="ScrollContainer"]
+visible = false
+offset_right = 707.0
+offset_bottom = 454.0
+script = ExtResource("1_68oxd")
+
+[node name="MessageContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 2
