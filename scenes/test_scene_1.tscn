@@ -1,0 +1,129 @@
+[gd_scene load_steps=21 format=3 uid="uid://b6g4a5esq0b4v"]
+
+[ext_resource type="Script" uid="uid://dok6022few3g1" path="res://scenes/test_scene_1.gd" id="1_25wv2"]
+[ext_resource type="Texture2D" uid="uid://btew2r07i4pdg" path="res://assets/texture0.png" id="1_mkvjy"]
+[ext_resource type="Shader" uid="uid://840hnr0lnhcs" path="res://shaders/canvas_item/colormap.gdshader" id="2_hd1c1"]
+[ext_resource type="Shader" uid="uid://duwf63bid80u" path="res://shaders/canvas_item/chromatic_abberation.gdshader" id="3_c7jcs"]
+[ext_resource type="Texture2D" uid="uid://djv6qq1405ibi" path="res://assets/rgb_wheel.png" id="3_qj848"]
+[ext_resource type="Shader" uid="uid://yovsk73al3e7" path="res://shaders/canvas_item/crt.gdshader" id="4_q6dig"]
+[ext_resource type="Shader" uid="uid://b6e5pasypmtia" path="res://shaders/canvas_item/pixelize.gdshader" id="5_25wv2"]
+[ext_resource type="Shader" uid="uid://cu42sgofirg2p" path="res://shaders/canvas_item/emboss.gdshader" id="7_ovwca"]
+[ext_resource type="Shader" uid="uid://dh0gbxwv0br56" path="res://shaders/canvas_item/VHS.gdshader" id="8_hdkvm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ohw3e"]
+
+[sub_resource type="Gradient" id="Gradient_hd1c1"]
+offsets = PackedFloat32Array(0, 0.983607)
+colors = PackedColorArray(0.176471, 0, 0, 1, 1, 1, 0.792157, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_c7jcs"]
+gradient = SubResource("Gradient_hd1c1")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c7jcs"]
+shader = ExtResource("2_hd1c1")
+shader_parameter/gradient = SubResource("GradientTexture1D_c7jcs")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q6dig"]
+shader = ExtResource("3_c7jcs")
+shader_parameter/screen_size = Vector2(1920, 1080)
+shader_parameter/red_offset = Vector2(10, 0)
+shader_parameter/green_offset = Vector2(0, 0)
+shader_parameter/blue_offset = Vector2(-10, -10)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ovwca"]
+shader = ExtResource("4_q6dig")
+shader_parameter/distortion = 0.2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hdkvm"]
+shader = ExtResource("5_25wv2")
+shader_parameter/screen_resolution = Vector2(1920, 1080)
+shader_parameter/strength = 9.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_25wv2"]
+shader = ExtResource("7_ovwca")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_hdkvm"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qj848"]
+noise = SubResource("FastNoiseLite_hdkvm")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qj848"]
+shader = ExtResource("8_hdkvm")
+shader_parameter/screen_size = Vector2(1920, 1080)
+shader_parameter/noise = SubResource("NoiseTexture2D_qj848")
+shader_parameter/strength = 0.01
+
+[node name="TestScene1" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_25wv2")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_mkvjy")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -128.0
+offset_bottom = 128.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("3_qj848")
+expand_mode = 1
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ohw3e")
+current_tab = 2
+
+[node name="Colormap" type="ColorRect" parent="TabContainer"]
+visible = false
+material = SubResource("ShaderMaterial_c7jcs")
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="ChromaticAbberation" type="ColorRect" parent="TabContainer"]
+visible = false
+material = SubResource("ShaderMaterial_q6dig")
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="CRT" type="ColorRect" parent="TabContainer"]
+material = SubResource("ShaderMaterial_ovwca")
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="Pixelize" type="ColorRect" parent="TabContainer"]
+visible = false
+material = SubResource("ShaderMaterial_hdkvm")
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="Emboss" type="ColorRect" parent="TabContainer"]
+visible = false
+material = SubResource("ShaderMaterial_25wv2")
+layout_mode = 2
+metadata/_tab_index = 4
+
+[node name="VHS" type="ColorRect" parent="TabContainer"]
+visible = false
+material = SubResource("ShaderMaterial_qj848")
+layout_mode = 2
+metadata/_tab_index = 5
